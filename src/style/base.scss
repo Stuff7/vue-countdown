@@ -1,0 +1,59 @@
+@use "sass:math";
+@use "./font.scss";
+
+@function unitless($name, $value, $unit) {
+  @if math.is-unitless($value) {
+    @return $value + $unit;
+  }
+  @error "#{$unit} function only takes unitless types";
+}
+
+@function rem($px) {
+  @return unitless(rem, math.div($px, 16), rem);
+}
+
+@include font.load-font("Dosis", $blacklist: (100, 900));
+@include font.load-single-style-font("FontAwesome", $font-family: "Font Awesome");
+
+:root {
+  --color-light-1: #ffffff;
+  --color-light-2: #f8f8f8;
+  --color-light-3: #f2f2f2;
+  --color-light-accent: #41b883;
+  --color-light-error: #cd5c5c;
+  --color-dark-1: #181818;
+  --color-dark-2: #222222;
+  --color-dark-3: #282828;
+  --color-dark-accent: #2a7955;
+  --color-dark-error: #cf0404;
+
+  --spacing-nm-200: #{clamp(rem(16), 1vw, rem(20))};
+  --spacing-nm-100: #{clamp(rem(10), 0.5vw, rem(12))};
+
+  --p-nm-200: #{clamp(rem(20), 2vw, rem(24))};
+  --p-nm-100: #{clamp(rem(14), 1vw, rem(16))};
+
+  --radius-nm-100: #{clamp(rem(4), 0.2vw, rem(6))};
+}
+
+:root {
+  --color-background-1: var(--color-light-1);
+  --color-background-2: var(--color-light-2);
+  --color-background-3: var(--color-light-3);
+  --color-text-1: var(--color-dark-1);
+  --color-text-2: var(--color-dark-2);
+  --color-text-3: var(--color-dark-3);
+  --color-accent: var(--color-dark-accent);
+  --color-error: var(--color-dark-error);
+
+  @media (prefers-color-scheme: dark) {
+    --color-background-1: var(--color-dark-1);
+    --color-background-2: var(--color-dark-2);
+    --color-background-3: var(--color-dark-3);
+    --color-text-1: var(--color-light-1);
+    --color-text-2: var(--color-light-2);
+    --color-text-3: var(--color-light-3);
+    --color-accent: var(--color-light-accent);
+    --color-error: var(--color-light-error);
+  }
+}
