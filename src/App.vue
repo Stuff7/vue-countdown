@@ -43,7 +43,7 @@ function delCountdown(index: number) {
           v-for="unit of (['days', 'hours', 'minutes', 'seconds'] as const)"
           :key="unit"
           v-model.number="inputCountdown[unit]"
-          size="7"
+          size="6"
           type="number"
           :label="unit"
           :style="{ '--label-text-transform': 'capitalize' }"
@@ -68,6 +68,8 @@ function delCountdown(index: number) {
 </template>
 
 <style scoped lang="scss">
+@use "./style/media.scss";
+
 main {
   width: 100vw;
   height: 100vh;
@@ -87,6 +89,35 @@ main {
     gap: var(--spacing-nm-100);
     grid-template-columns: 1fr repeat(5, max-content);
 
+    @include media.smaller-than(tablet-sm) {
+      grid-template-columns: 1fr repeat(3, max-content);
+      grid-template-areas: "a a a b" "c d e f";
+
+      & > :nth-child(1) {
+        grid-area: a;
+      }
+
+      & > :nth-child(2) {
+        grid-area: b;
+      }
+
+      & > :nth-child(3) {
+        grid-area: c;
+      }
+
+      & > :nth-child(4) {
+        grid-area: d;
+      }
+
+      & > :nth-child(5) {
+        grid-area: e;
+      }
+
+      & > :nth-child(6) {
+        grid-area: f;
+      }
+    }
+
     button {
       background: var(--color-accent);
       color: var(--color-background-1);
@@ -94,7 +125,7 @@ main {
       font-size: var(--p-nm-100);
       border-radius: var(--radius-nm-100);
       font-weight: bold;
-      aspect-ratio: 1 / 1;
+      height: 100%;
 
       &:hover {
         background: var(--color-text-1);
@@ -106,9 +137,21 @@ main {
     display: grid;
     width: 100%;
     gap: var(--spacing-nm-100);
-    grid-template-columns: repeat(4, 1fr);
     list-style: none;
     padding: 0;
+    grid-template-columns: repeat(var(--countdown-cols), 1fr);
+
+    @include media.larger-than(phone) {
+      --countdown-cols: 1;
+    }
+
+    @include media.larger-than(tablet-sm) {
+      --countdown-cols: 3;
+    }
+
+    @include media.larger-than(desktop-sm) {
+      --countdown-cols: 4;
+    }
   }
 
   li {
