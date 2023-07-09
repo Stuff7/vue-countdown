@@ -1,0 +1,36 @@
+@use "sass:list";
+@use "sass:math";
+@use "sass:color";
+
+$light-1: #ffffff;
+$light-2: #f8f8f8;
+$light-3: #f2f2f2;
+$light-accent: #41b883;
+$light-error: #cd5c5c;
+$dark-1: #181818;
+$dark-2: #222222;
+$dark-3: #282828;
+$dark-accent: #2a7955;
+$dark-error: #cf0404;
+
+@function var-hsl($var-name, $h: var(#{$var-name}-h), $s: var(#{$var-name}-s), $l: var(#{$var-name}-l), $alpha: 1) {
+  @return hsl($h, $s, $l, $alpha);
+}
+
+@mixin define-hex($var-name, $hexColor) {
+  @include define-hsl($var-name, color.hue($hexColor), color.saturation($hexColor), color.lightness($hexColor));
+}
+
+@mixin define-hsl($var-name, $hue, $saturation, $lightness) {
+  #{$var-name}-h: $hue;
+  #{$var-name}-s: $saturation;
+  #{$var-name}-l: $lightness;
+  #{$var-name}: var-hsl($var-name);
+}
+
+@function alpha($var-name, $alpha: 1) {
+  $h: var(#{$var-name}-h);
+  $s: var(#{$var-name}-s);
+  $l: var(#{$var-name}-l);
+  @return hsla($h, $s, $l, $alpha);
+}

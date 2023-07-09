@@ -1,5 +1,5 @@
 @use "sass:map";
-@use "./base.scss" as misc;
+@use "~/style/base.scss" as misc;
 
 $breakpoints-px: (
   phone-s: 321,

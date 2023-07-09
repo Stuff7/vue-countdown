@@ -1,4 +1,4 @@
-@use './base.scss';
+@use "~/style/base.scss";
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -22,6 +22,11 @@ a {
   text-decoration: none;
   color: var(--color-accent);
   transition: 0.4s;
+}
+
+strong, b {
+  font-weight: bold;
+  color: var(--color-accent);
 }
 
 input, button {
@@ -48,4 +53,14 @@ i {
   &.plus::after {
     content: "\2b";
   }
+}
+
+#tooltip-layer {
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
 }

@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { reactive, ref } from "vue";
-import LiquidCountdown from "~/components/LiquidCountdown.vue";
-import LabeledInput from "~/components/LabeledInput.vue";
 import { setLocalItem } from "~/storage";
 import { MILLIS_AS, getCountdowns } from "~/countdown";
+import LiquidCountdown from "~/components/LiquidCountdown.vue";
+import DInput from "~/components/DInput.vue";
+import DTooltip from "./components/DTooltip.vue";
 
 const inputCountdown = reactive({ name: "Countdown", days: 0, hours: 0, minutes: 0, seconds: 0 });
 const countdowns = ref(getCountdowns());
@@ -34,12 +35,12 @@ function delCountdown(index: number) {
   <main>
     <article>
       <form @submit.prevent="addCountdown">
-        <labeled-input
+        <d-input
           v-model="inputCountdown.name"
           type="text"
           label="Name"
         />
-        <labeled-input
+        <d-input
           v-for="unit of (['days', 'hours', 'minutes', 'seconds'] as const)"
           :key="unit"
           v-model.number="inputCountdown[unit]"
@@ -50,6 +51,7 @@ function delCountdown(index: number) {
         />
         <button>
           <i class="plus" />
+          <d-tooltip>Add Countdown</d-tooltip>
         </button>
       </form>
       <ul>
@@ -59,6 +61,7 @@ function delCountdown(index: number) {
         >
           <button @click="delCountdown(i)">
             <i class="trash" />
+            <d-tooltip>Remove</d-tooltip>
           </button>
           <liquid-countdown v-bind="countdown" />
         </li>
@@ -68,7 +71,7 @@ function delCountdown(index: number) {
 </template>
 
 <style scoped lang="scss">
-@use "./style/media.scss";
+@use "~/style/media.scss";
 
 main {
   width: 100vw;
