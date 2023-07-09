@@ -4,7 +4,7 @@ import { setLocalItem } from "~/storage";
 import { MILLIS_AS, getCountdowns } from "~/countdown";
 import LiquidCountdown from "~/components/LiquidCountdown.vue";
 import DInput from "~/components/DInput.vue";
-import DTooltip from "./components/DTooltip.vue";
+import DTooltip from "~/components/DTooltip.vue";
 
 const inputCountdown = reactive({ name: "Countdown", days: 0, hours: 0, minutes: 0, seconds: 0 });
 const countdowns = ref(getCountdowns());
