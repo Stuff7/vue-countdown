@@ -10,8 +10,22 @@ export default function useMousePosition() {
     y.value = clientY;
   }
 
-  onMounted(() => window.addEventListener("mousemove", update));
-  onUnmounted(() => window.removeEventListener("mousemove", update));
+  onMounted(() => {
+    window.addEventListener("mouseenter", update);
+    window.addEventListener("touchstart", update);
+    window.addEventListener("mousemove", update);
+    window.addEventListener("touchmove", update);
+    window.addEventListener("mouseleave", update);
+    window.addEventListener("touchend", update);
+  });
+  onUnmounted(() => {
+    window.removeEventListener("mouseenter", update);
+    window.removeEventListener("touchstart", update);
+    window.removeEventListener("mousemove", update);
+    window.removeEventListener("touchmove", update);
+    window.removeEventListener("mouseleave", update);
+    window.removeEventListener("touchend", update);
+  });
 
   return { x, y };
 }
