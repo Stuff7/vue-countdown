@@ -5,9 +5,9 @@ export default function useMousePosition() {
   const y = ref(0);
 
   function update(event: MouseTouchEvent) {
-    const { pageX, pageY } = getPagePos(event);
-    x.value = pageX;
-    y.value = pageY;
+    const { clientX, clientY } = getPagePos(event);
+    x.value = clientX;
+    y.value = clientY;
   }
 
   onMounted(() => window.addEventListener("mousemove", update));
