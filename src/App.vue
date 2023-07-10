@@ -5,6 +5,7 @@ import { MILLIS_AS, getCountdowns } from "~/countdown";
 import LiquidCountdown from "~/components/LiquidCountdown.vue";
 import DInput from "~/components/DInput.vue";
 import DTooltip from "~/components/DTooltip.vue";
+import DIcon from "~/components/DIcon.vue";
 
 const inputCountdown = reactive({ name: "Countdown", days: 0, hours: 0, minutes: 0, seconds: 0 });
 const countdowns = ref(getCountdowns());
@@ -50,8 +51,8 @@ function delCountdown(index: number) {
           :style="{ '--label-text-transform': 'capitalize' }"
         />
         <button>
-          <i class="plus" />
-          <d-tooltip>Add Countdown</d-tooltip>
+          <d-icon name="plus" />
+          <d-tooltip><p><d-icon name="plus" />Add Countdown</p></d-tooltip>
         </button>
       </form>
       <ul>
@@ -60,8 +61,8 @@ function delCountdown(index: number) {
           :key="countdown.id"
         >
           <button @click="delCountdown(i)">
-            <i class="trash" />
-            <d-tooltip>Remove</d-tooltip>
+            <d-icon name="trash" />
+            <d-tooltip><p><d-icon name="trash" />Remove</p></d-tooltip>
           </button>
           <liquid-countdown v-bind="countdown" />
         </li>
@@ -175,5 +176,11 @@ main {
       }
     }
   }
+}
+
+p {
+  display: flex;
+  gap: var(--spacing-nm-100);
+  align-items: center;
 }
 </style>

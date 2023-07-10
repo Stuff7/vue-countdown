@@ -17,7 +17,7 @@
   @return unitless(em, math.div($px, 16), em);
 }
 
-@include font.load-font("Dosis", $blacklist: (100, 900));
+@include font.load-font("Raleway");
 @include font.load-single-style-font("FontAwesome", $font-family: "Font Awesome");
 
 :root {

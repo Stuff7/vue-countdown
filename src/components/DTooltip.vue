@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import useHover from "~/composables/hover";
+import useIntersectionObserver from "~/composables/intersection";
 import useMousePosition from "~/composables/mouse-position";
 
 const props = defineProps<{ for?: string }>();
@@ -10,8 +11,26 @@ onMounted(() => {
 });
 
 const { x, y } = useMousePosition();
+const calculatedPosition = ref({ x: "1rem", y: "1rem" });
 const [isHovering, parentRef] = useHover();
 const anchorRef = ref<Option<HTMLElement>>(null);
+const tooltipRef = useIntersectionObserver((entry) => {
+  if (entry.intersectionRatio < 1) {
+    const { boundingClientRect: tooltipRect, intersectionRect } = entry;
+    let { x: positionX, y: positionY } = calculatedPosition.value;
+    if (tooltipRect.right !== intersectionRect.right) {
+      positionX = "-100% - 1rem";
+    } else if (tooltipRect.left !== intersectionRect.left) {
+      positionX = "1rem";
+    }
+    if (tooltipRect.top !== intersectionRect.top) {
+      positionY = "1rem";
+    } else if (tooltipRect.bottom !== intersectionRect.bottom) {
+      positionY = "-100% - 1rem";
+    }
+    calculatedPosition.value = { x: positionX, y: positionY };
+  }
+}, { root: document.getElementById("#tooltip-layer") });
 </script>
 
 <template>
@@ -19,7 +38,16 @@ const anchorRef = ref<Option<HTMLElement>>(null);
     v-if="isHovering"
     to="#tooltip-layer"
   >
-    <div role="tooltip">
+    <div
+      ref="tooltipRef"
+      role="tooltip"
+      :style="{
+        '--tooltip-x': `${x}px`,
+        '--tooltip-y': `${y}px`,
+        '--tooltip-position-x': `calc(${calculatedPosition.x})`,
+        '--tooltip-position-y': `calc(${calculatedPosition.y})`,
+      }"
+    >
       <slot />
     </div>
   </Teleport>
@@ -35,8 +63,8 @@ const anchorRef = ref<Option<HTMLElement>>(null);
 
 div {
   position: absolute;
-  left: calc(v-bind(x) * 1px + 1rem);
-  top: calc(v-bind(y) * 1px + 1rem);
+  left: var(--tooltip-x);
+  top: var(--tooltip-y);
   pointer-events: none;
   background: color.alpha(--color-background-3, 0.9);
   color: var(--color-text-1);
@@ -44,8 +72,8 @@ div {
   border-radius: var(--radius-nm-100);
   padding: var(--spacing-nm-100);
   width: max-content;
-  min-width: clamp(base.rem(48), 4vw, base.rem(96));
   max-width: clamp(base.rem(220), 80vw, base.rem(900));
+  transform: translate(var(--tooltip-position-x), var(--tooltip-position-y));
 }
 
 span {

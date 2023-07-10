@@ -28,7 +28,7 @@ $weight-name-map: (
   font-weight: $font-weight;
 }
 
-@mixin load-font($font-name, $font-type: "ttf", $blacklist, $font-family: $font-name) {
+@mixin load-font($font-name, $font-type: "ttf", $blacklist: (), $font-family: $font-name) {
   @each $font-weight, $font-variant in $weight-name-map {
     @if list.index($blacklist, $font-weight) == null {
       @font-face {

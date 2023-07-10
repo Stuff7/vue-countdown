@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import DIcon from "~/components/DIcon.vue";
 
 const NUMBER_PATTERN = /^-?(\d+\.?\d*|\d*\.?\d+)$/;
 const emit = defineEmits<{ (e: "update:modelValue", value: string): void }>();
@@ -46,7 +47,7 @@ function validateInput(event: Event) {
     >
     <label>{{ label }}</label>
     <p v-if="inputError">
-      <i class="warn" />
+      <d-icon name="exclamation-triangle" />
       {{ inputError }}
     </p>
   </div>
