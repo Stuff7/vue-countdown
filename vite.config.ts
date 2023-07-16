@@ -6,9 +6,6 @@ import vue from "@vitejs/plugin-vue";
 export default defineConfig({
   base: "/vue-countdown/",
   publicDir: "./src/assets",
-  build: {
-    outDir: "./docs",
-  },
   server: {
     port: 3000,
   },
