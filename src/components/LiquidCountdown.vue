@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import MovingWaves from "~/components/MovingWaves.vue";
-import countdown, { parseDuration, type Countdown } from "~/countdown";
+import { parseDuration } from "miscfe/time";
+import countdown, { type Countdown } from "~/countdown";
 
 const props = defineProps<Countdown>();
 

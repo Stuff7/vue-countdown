@@ -1,4 +1,5 @@
 import { createApp } from "vue";
+import { setLocalNamespace } from "miscfe/storage";
 import App from "~/App.vue";
 
 if (crypto && !("randomUUID" in crypto)) {
@@ -13,4 +14,5 @@ if (crypto && !("randomUUID" in crypto)) {
   };
 }
 
+setLocalNamespace("VCD");
 createApp(App).mount("#app");

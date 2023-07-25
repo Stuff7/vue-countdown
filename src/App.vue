@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { reactive, ref } from "vue";
-import { setLocalItem } from "~/storage";
-import { MILLIS_AS, getCountdowns } from "~/countdown";
+import { setLocalItem } from "miscfe/storage";
+import { getCountdowns } from "~/countdown";
+import { MILLIS_AS } from "miscfe/time";
 import LiquidCountdown from "~/components/LiquidCountdown.vue";
-import DInput from "d-components/DInput";
-import DTooltip from "d-components/DTooltip";
-import DIcon from "d-components/DIcon";
+import DInput from "d-components/DInput.vue";
+import DTooltip from "d-components/DTooltip.vue";
+import DIcon from "d-components/DIcon.vue";
 
 const inputCountdown = reactive({ name: "Countdown", days: 0, hours: 0, minutes: 0, seconds: 0 });
 const countdowns = ref(getCountdowns());

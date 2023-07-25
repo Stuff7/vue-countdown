@@ -1,4 +1,4 @@
-import { getLocalItem } from "./storage";
+import { getLocalItem } from "miscfe/storage";
 
 export default function countdown(milliseconds: number, callback: (milliseconds: number) => unknown) {
   if (milliseconds <= 0) {
@@ -59,24 +59,3 @@ export function isCountdown(obj: object | Record<string, unknown>): obj is WithI
     "end" in obj && typeof obj.end === "number"
   );
 }
-
-export function parseDuration(durationMs: number) {
-  const seconds = Math.floor(durationMs / 1000);
-  const minutes = Math.floor(seconds / 60);
-  const hours = Math.floor(minutes / 60);
-  const days = Math.floor(hours / 24);
-
-  return {
-    days,
-    hours: hours % 24,
-    minutes: minutes % 60,
-    seconds: seconds % 60,
-  };
-}
-
-export const MILLIS_AS = {
-  seconds: 1e3,
-  minutes: 60e3,
-  hours: 60e3 * 60,
-  days: 60e3 * 60 * 24,
-};
