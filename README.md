@@ -1,3 +1,0 @@
-# vue-countdown
-
-Just countdowns
